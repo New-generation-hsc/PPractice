@@ -8,16 +8,7 @@ include the following function:
 
 import numpy as np
 from PIL import Image
-import re
-
-
-def get_label_from_path(path):
-    """
-    the label is the folder name where the image store
-    """
-    layers = re.split(r'(\\|\\\\|/)', path)
-    assert len(layers) >= 3, "Image path must be a valid path include its label"
-    return layers[-3]
+import os
 
 
 class Classifier(object):
@@ -25,12 +16,13 @@ class Classifier(object):
         super(Classifier, self).__init__()
 
     @staticmethod
-    def load_img(csv_path):
+    def load_img(image_path):
         """
         given an image path, return the image pixel matrix
         and the image label
         """
-        raise NotImplementedError("Not Implemented Yet")
+        img = Image.open(image_path)
+        return np.array(img)
 
     @staticmethod
     def save_feature(feature, feature_path):
@@ -50,5 +42,5 @@ class Classifier(object):
 
 if __name__ == "__main__":
 
-    label = get_label_from_path("\\path\\new\\image.jpg")
+    label = get_label_from_path("path/image.jpg")
     print(label)
