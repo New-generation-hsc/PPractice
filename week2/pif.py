@@ -28,7 +28,7 @@ def calc_numbers(image_matrix, k, sigma):
 
 
 def calc_pif(image_matrix, k, sigma):
-	return calc_numbers(image_matrix, k, sigma) / ((2 * k + 1) ** 2 - 1)
+	return calc_numbers(image_matrix, k, sigma) / ((2 * k + 1) ** 2)
 
 
 def calc_nif(pif_matrix, k):
@@ -53,7 +53,7 @@ def calc_seeds(pif_matrix, nif_matrix):
 	return np.logical_and(pif_matrix >= 0.5, nif_matrix >= 0.5)
 
 def generate(image_path, k):
-	img = np.array(Image.open(image_path))
+	img = np.array(Image.open(image_path).convert('L'))
 	avg = calc_average(img, k)
 	pif = calc_pif(img, k, avg)
 	nif = calc_nif(pif, k)
@@ -62,15 +62,15 @@ def generate(image_path, k):
 	plt.show()
 
 def generate_v2(image_path, k):
-	img = np.array(Image.open(image_path))
+	img = np.array(Image.open(image_path).convert('L'))
 	avg = calc_average(img, k)
-	pif = calc_pif(img, k, 150)
-	result = (pif > 0.5) * 255
-	plt.imshow(result)
+	pif = calc_pif(img, k, 38)
+	result = (pif <= 0.5) * 255
+	plt.imshow(result, cmap='gray')
 	plt.show()
 
 if __name__ == "__main__":
-	generate_v2('06c4ab99-9780-3e42-a00d-39696ca39a6e.jpg', 3)
+	generate_v2('06c4ab99-9780-3e42-a00d-39696ca39a6e.jpg', 1)
 	# img = np.array(Image.open('06c4ab99-9780-3e42-a00d-39696ca39a6e.jpg'))
 	# avg = calc_average(img, 3)
 	# print("avg:", avg)
