@@ -64,13 +64,17 @@ def generate(image_path, k):
 def generate_v2(image_path, k):
 	img = np.array(Image.open(image_path).convert('L'))
 	avg = calc_average(img, k)
-	pif = calc_pif(img, k, 38)
-	result = (pif <= 0.5) * 255
+	pif = calc_pif(img, k, 40)
+	result = (pif >= 0.5) * 255
+	plt.figure(figsize=(10, 15))
+	plt.subplot(121)
+	plt.imshow(img, cmap='gray')
+	plt.subplot(122)
 	plt.imshow(result, cmap='gray')
 	plt.show()
 
 if __name__ == "__main__":
-	generate_v2('06c4ab99-9780-3e42-a00d-39696ca39a6e.jpg', 1)
+	generate_v2('zebia.png', 3)
 	# img = np.array(Image.open('06c4ab99-9780-3e42-a00d-39696ca39a6e.jpg'))
 	# avg = calc_average(img, 3)
 	# print("avg:", avg)
