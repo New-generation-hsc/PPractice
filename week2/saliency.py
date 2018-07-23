@@ -49,7 +49,7 @@ def generate_image(image_path, k):
 	img = np.array(Image.open(image_path).convert('L'))
 	avg = calc_average(img, k)
 	print(avg)
-	pif = calc_pif(img, k, 39)
+	pif = calc_pif(img, k, avg)
 	fig = plt.figure(figsize=(10, 15))
 	axes = fig.add_subplot(321)
 	axes.imshow(img, cmap='gray')
