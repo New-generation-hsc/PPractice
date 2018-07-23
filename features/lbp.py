@@ -3,14 +3,14 @@ import numpy as np
 from PIL import Image
 
 
-class LocalBinaryPatterns:
+class LocalBinaryPatterns(object):
 
     def __init__(self, numPoints, radius):
         # store the number of points and radius
         self.numPoints = numPoints
         self.radius = radius
 
-    def describe(self, image, eps=1e-7):
+    def describe(self, image):
         # compute the Local Binary Pattern representation
         # of the image, and then use the LBP representation
         # to build the histogram of patterns
@@ -20,30 +20,18 @@ class LocalBinaryPatterns:
                                  bins=np.arange(0, self.numPoints + 3),
                                  range=(0, self.numPoints + 2))
 
-        # normalize the histogram
-        hist = hist.astype("float")
-        hist /= (hist.sum() + eps)
-
         # return the histogram of Local Binary Patterns
         return hist
 
-    def get_lbp_feature(self, image_path):
+    def get_feature(self, image_path, norm=True, eps=1e-7):
         img = Image.open(image_path).convert('L')
-        return self.describe(img)
+        hist = self.describe(img)
+        if norm:
+            # normalize the histogram
+            hist = hist.astype("float")
+            hist /= (hist.sum() + eps)
+        return hist
 
-def get_LBP_feature_vector(imagePath):
-    image = cv2.imread(imagePath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    hist = desc.describe(gray)
-
-    # extract the label from the image path, then update the
-    # label and data lists
-    data.append(hist)
-    return data
 
 desc = LocalBinaryPatterns(24, 8)
-# data = []
-# imagePath = "cover.jpgs"
-# data = get_LBP_feature_vector(imagePath)
-# print(data)
-print(desc.get_lbp_feature('cover.jpg'))
+print(desc.get_feature('../week2/cover.jpg'))

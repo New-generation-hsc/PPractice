@@ -5,7 +5,7 @@ import numpy as np
 import math  
 
 #测试图片
-path='C:/Users/lenovo/Desktop/flowers.jpg'
+path='cover.jpg'
 img=io.imread(path)
 '''
 函数功能：生成图片颜色直方图
@@ -53,9 +53,9 @@ def AutoCorrelogram(img,d,max_color):
 	#获取颜色自相关直方图向量
 	autoHist=[]
 	lastSum=0
-	for i in range(1,max_color+1)
+	for i in range(1,max_color+1):
 		autoHist.append((autoCorrelogram<i*256/max_color).sum()-lastSum)
-		lastSum=autoCorrelogram<i*256/max_color).sum()
+		lastSum = (autoCorrelogram<i*256/max_color).sum()
 	return autoHist
 
 '''
