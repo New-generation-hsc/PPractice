@@ -71,4 +71,4 @@ def generate_image(image_path, k):
 	plt.show()
 
 if __name__ == '__main__':
-	generate_image('pic.jpg', 3)
+	generate_image('fox.jpg', 3)
