@@ -10,7 +10,7 @@ def traverse(root):  # 遍历根目录下所有图片文件
         for file in files:
             image = os.path.join(root, file)  # 图片文件
             key_image.append(image)
-            category = root[15:]     # 文件夹是其类别
+            category = root[24:]     # 文件夹是其类别
             value_type.append(category)
     total = key_image + value_type  # total列表先存放所有的文件，后存放对应的类别
     return total
@@ -85,6 +85,7 @@ def get_test():   # 得到测试集并写入test.csv中
                 # 依类别写入测试集，循环 20 次
                 while index1 < len(countlist):
                     while index3 < countlist[index1]:
+                        print(index1, index2)
                         temp = [test_res[index2], types[index1]]  # 图片文件 类别
                         writer = csv.writer(test)
                         writer.writerow(temp)
@@ -107,8 +108,8 @@ def get_train():     # 得到训练集并写入train.csv中
                 key_index += 1
 
 
-rootDir = "D:/NEU-dataset"    # 根目录
-types = ['bear', 'bird', 'car', 'cow', 'elk', 'fox', 'giraffe', 'horse', 'koala', 'lion', 'monkey',
+rootDir = "/home/greek/data/ds2018"    # 根目录
+types = ['bear','bicycle', 'bird', 'car', 'cow', 'elk', 'fox', 'giraffe', 'horse', 'koala', 'lion', 'monkey',
             'plane', 'puppy', 'sheep', 'statue', 'tiger', 'tower', 'train', 'whale', 'zebra']
 
 resList = traverse(rootDir)
