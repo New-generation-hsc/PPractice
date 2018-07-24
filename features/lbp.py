@@ -34,4 +34,6 @@ class LocalBinaryPatterns(object):
 
 
 desc = LocalBinaryPatterns(24, 8)
-print(desc.get_feature('../week2/cover.jpg'))
+print(desc.get_feature('../week2/cover.jpg').shape)
+print(desc.get_feature('../week2/pic.jpg').shape)
+print(desc.get_feature('../week2/zebra.png').shape)
