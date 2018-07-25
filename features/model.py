@@ -3,11 +3,14 @@ This module define the method for store the image feature
 """
 from lbp import LocalBinaryPatterns
 from hog import HistgoramOrientedGradient
+from sift import SIFT
+import numpy as np
 import os
 import csv
 
 lbp = LocalBinaryPatterns(8, 1)
 hog = HistgoramOrientedGradient()
+sift = SIFT()
 
 def load_from_csv(csv_path):
     """
@@ -73,9 +76,47 @@ def extract_feature_lbp_and_hog(images_path, labels, folder):
         store_feature(feature, os.path.join('../data/' + folder, label))
 
 
+def extract_feature_sift(images_path, labels, folder):
+    img_dict = {}
+    for img, label in zip(images_path, labels):
+        img_dict.setdefault(label, [])
+        img_dict[label].append(img)
+
+    for label in img_dict:
+        features = []
+        feature_dict = sift.build_vocabulary(img_dict[label])
+        feature_set = []
+        for key in feature_dict:
+            feature_set.extend(feature_dict[key])
+        centers = sift.calc_centers(feature_set)
+        for img in feature_dict:
+            hist = sift.calc_histogram(feature_dict[img], centers)
+            features.append(hist)
+        print(np.array(features).shape)
+        break
+
+
+
 if __name__ == "__main__":
     images_path, labels = load_from_csv('../csv/train.csv')
-    extract_feature(images_path, labels, 'train')
+    # img_dict = {}
+    # for img, label in zip(images_path, labels):
+    #     img_dict.setdefault(label, [])
+    #     img_dict[label].append(img)
 
-    images_path, labels = load_from_csv('../csv/test.csv')
-    extract_feature(images_path, labels, 'test')
+    # feature_dict = sift.build_vocabulary(img_dict['bear'])
+    # feature_set = []
+    # for key in feature_dict:
+    #     feature_set.extend(feature_dict[key])
+    # print(np.array(feature_set).shape)
+
+    # centers = sift.calc_centers(feature_set)
+    # print("label:->", np.array(labels).shape)
+    # print(labels)
+    # print("centers:->", np.array(centers).shape)
+    # print(centers)
+    # features = sift.calc_sift_feature(img_dict['bear'][0])
+    # hist = sift.calc_histogram(features, centers)
+    # print("hist:->", hist.shape)
+    # print(hist)
+    extract_feature_sift(images_path, labels, "sift")
