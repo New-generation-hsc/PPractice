@@ -5,7 +5,7 @@ from lbp import LocalBinaryPatterns
 import os
 import csv
 
-lbp = LocalBinaryPatterns(24, 8)
+lbp = LocalBinaryPatterns(8, 1)
 
 def load_from_csv(csv_path):
     """
