@@ -31,7 +31,9 @@ class Classifier(object):
 	def evaluate(self):
 		print("start testing...")
 		sample_lables = self.clf.predict_proba(self.test_x)
+		print(sample_lables.shape)
 		sample_index = np.argsort(-sample_lables, axis=1)[:, :5]
+		print(sample_index.shape)
 		right_num = 0
 		num_n = sample_lables.shape[0]  # the number of samples
 		for i in range(num_n):
@@ -57,14 +59,14 @@ def load_feature(path):
 	return x, y, labels
 
 def train():
-	train_x, train_y, labels = load_feature('../data/train')
-	test_x, test_y, labels = load_feature('../data/test')
+	train_x, train_y, labels = load_feature('../data/train_hog')
+	test_x, test_y, labels = load_feature('../data/test_hog')
 	clf = Classifier(train_x, train_y, test_x, test_y, labels)
 	print("start training...")
 	clf.train()
 	print("start evaluate...")
 	correction = clf.evaluate()
-	print("finis test...")
+	print("finish test...")
 	print("The classifier correctness is {}.".format(correction))
 
 
