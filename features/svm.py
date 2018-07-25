@@ -44,6 +44,7 @@ def load_feature(path):
 	x = []
 	y = []
 	labels = []
+	count = 0
 	for file in os.listdir(path):
 		label = file.split('.')[0]
 		labels.append(label)

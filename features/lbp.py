@@ -17,12 +17,11 @@ class LocalBinaryPatterns(object):
         # to build the histogram of patterns
         lbp = feature.local_binary_pattern(image, self.numPoints,
                                            self.radius, "default")
-        x = itemfreq(lbp.ravel())
         # Normalize the histogram
-        hist = x[:, 1] / sum(x[:, 1])
-
-        # return the histogram of Local Binary Patterns
+        n_bins = 2 ** self.numPoints
+        hist, _ = np.histogram(lbp, normed=True, bins=n_bins, range=(0, n_bins))
         return hist
+
 
     def get_feature(self, image_path):
         img = Image.open(image_path).convert('L')
@@ -30,7 +29,9 @@ class LocalBinaryPatterns(object):
         return hist
 
 
-desc = LocalBinaryPatterns(8, 1)
-print(desc.get_feature('../week2/cover.jpg'))
-print(desc.get_feature('../week2/pic.jpg').shape)
-print(desc.get_feature('../week2/zebra.png').shape)
+if __name__ == "__main__":
+    
+    desc = LocalBinaryPatterns(8, 1)
+    print(desc.get_feature('../week2/cover.jpg').shape)
+    print(desc.get_feature('../week2/pic.jpg').shape)
+    print(desc.get_feature('../week2/zebra.png').shape)

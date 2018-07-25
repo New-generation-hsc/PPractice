@@ -75,7 +75,7 @@ def extract_feature_lbp_and_hog(images_path, labels, folder):
 
 if __name__ == "__main__":
     images_path, labels = load_from_csv('../csv/train.csv')
-    extract_feature_hog(images_path, labels, 'train_hog')
+    extract_feature(images_path, labels, 'train')
 
     images_path, labels = load_from_csv('../csv/test.csv')
-    extract_feature_hog(images_path, labels, 'test_hog')
+    extract_feature(images_path, labels, 'test')
