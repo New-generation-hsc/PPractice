@@ -15,13 +15,12 @@ import numpy as np
 
 class SIFT(object):
 
-    def __init__(self, k=50):
+    def __init__(self, k=200):
         super(SIFT, self).__init__()
         self.k = k
         self.sift = cv2.xfeatures2d.SIFT_create(200)  # the max number of key points
 
-    @staticmethod
-    def calc_sift_feature(image_path):
+    def calc_sift_feature(self, image_path):
         img = cv2.imread(image_path)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # convert the image to gray level
         kp, desc = self.sift.detectAndCompute(gray, None)

@@ -59,8 +59,8 @@ def load_feature(path):
 	return x, y, labels
 
 def train():
-	train_x, train_y, labels = load_feature('../data/train_hog')
-	test_x, test_y, labels = load_feature('../data/test_hog')
+	train_x, train_y, labels = load_feature('../data/train_texture')
+	test_x, test_y, labels = load_feature('../data/test_texture')
 	clf = Classifier(train_x, train_y, test_x, test_y, labels)
 	print("start training...")
 	clf.train()
