@@ -18,13 +18,13 @@ class SIFT(object):
     def __init__(self, k=50):
         super(SIFT, self).__init__()
         self.k = k
+        self.sift = cv2.xfeatures2d.SIFT_create(200)  # the max number of key points
 
     @staticmethod
     def calc_sift_feature(image_path):
         img = cv2.imread(image_path)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # convert the image to gray level
-        sift = cv2.xfeatures2d.SIFT_create(200)  # the max number of key points
-        kp, desc = sift.detectAndCompute(gray, None)
+        kp, desc = self.sift.detectAndCompute(gray, None)
         return desc
 
     def build_vocabulary(self, images_path):

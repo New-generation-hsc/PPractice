@@ -92,8 +92,8 @@ def extract_feature_sift(images_path, labels, folder):
         for img in feature_dict:
             hist = sift.calc_histogram(feature_dict[img], centers)
             features.append(hist)
-        print(np.array(features).shape)
-        break
+        print("start saving {} images...".format(label))
+        np.save("../data/" + folder + "/" + label + ".npy", np.array(features))
 
 
 
@@ -119,4 +119,4 @@ if __name__ == "__main__":
     # hist = sift.calc_histogram(features, centers)
     # print("hist:->", hist.shape)
     # print(hist)
-    extract_feature_sift(images_path, labels, "sift")
+    extract_feature_sift(images_path, labels, "train_sift")
