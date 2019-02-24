@@ -10,7 +10,7 @@ def traverse(root):  # 遍历根目录下所有图片文件
         for file in files:
             image = os.path.join(root, file)  # 图片文件
             key_image.append(image)
-            category = root[24:]     # 文件夹是其类别
+            category = root[15:]     # 文件夹是其类别
             value_type.append(category)
     total = key_image + value_type  # total列表先存放所有的文件，后存放对应的类别
     return total
@@ -108,15 +108,16 @@ def get_train():     # 得到训练集并写入train.csv中
                 key_index += 1
 
 
-rootDir = "/home/greek/data/ds2018"    # 根目录
+rootDir = "D:/NEU-dataset"    # 根目录
 types = ['bear','bicycle', 'bird', 'car', 'cow', 'elk', 'fox', 'giraffe', 'horse', 'koala', 'lion', 'monkey',
             'plane', 'puppy', 'sheep', 'statue', 'tiger', 'tower', 'train', 'whale', 'zebra']
 
-resList = traverse(rootDir)
-countlist = []
-write()
-sum_type = count()
-index_range = index()
-test_res = get_test_set()
-get_test()
-get_train()
+if __name__ == "__main__":
+    resList = traverse(rootDir)
+    countlist = []
+    write()
+    sum_type = count()
+    index_range = index()
+    test_res = get_test_set()
+    get_test()
+    get_train()

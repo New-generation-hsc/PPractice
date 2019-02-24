@@ -5,7 +5,7 @@ from PIL import Image
 
 class HistgoramOrientedGradient(object):
 
-    def __init__(self, orientation=8):
+    def __init__(self, orientation=9):
         super(HistgoramOrientedGradient, self).__init__()
         self.orientation = orientation
 
@@ -15,7 +15,7 @@ class HistgoramOrientedGradient(object):
         """
         hog = feature.hog(img, orientations=self.orientation,
                           block_norm='L1',
-                          cells_per_block=(3, 3),
+                          cells_per_block=(2, 2),
                           transform_sqrt=True)
         return hog
 

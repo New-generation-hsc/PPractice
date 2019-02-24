@@ -6,6 +6,10 @@ from hog import HistgoramOrientedGradient
 from sift import SIFT
 from color import ColorHistogram
 from haralick import Haralick
+from occurrence import GreyCoMatrix
+from sobel import Sobel
+from coprop import GreyCoprops
+
 import numpy as np
 import os
 import csv
@@ -15,6 +19,10 @@ hog = HistgoramOrientedGradient()
 sift = SIFT()
 color = ColorHistogram()
 haralick = Haralick()
+glcm = GreyCoMatrix()
+sobel = Sobel()
+coprop = GreyCoprops([1, 2], [0, np.pi / 2, np.pi, 3 * np.pi / 4])
+
 
 def load_from_csv(csv_path):
     """
@@ -51,6 +59,17 @@ def extract_feature(images_path, labels, folder):
         print("store feature in {}th image...".format(index))
         store_feature(feature, os.path.join('../data/' + folder, label))
 
+def extract_feature_sobel(images_path, labels, folder):
+    """
+    extract all images feature and store the images feature in the disk
+    """
+    index = 0
+    for (image, label) in zip(images_path, labels):
+        index += 1
+        print("extract feature in {}th image...".format(index))
+        feature = sobel.get_feature(image)
+        print("store feature in {}th image...".format(index))
+        store_feature(feature, os.path.join('../data/' + folder, label))
 
 def extract_feature_hog(images_path, labels, folder):
     """
@@ -61,6 +80,15 @@ def extract_feature_hog(images_path, labels, folder):
         index += 1
         print("extract feature in {}th image...".format(index))
         feature = hog.get_feature(image)
+        print("store feature in {}th image...".format(index))
+        store_feature(feature, os.path.join('../data/' + folder, label))
+
+def extract_feature_glcm(images_path, labels, folder):
+    index = 0
+    for(image, label) in zip(images_path, labels):
+        index += 1
+        print("extract feature in {}th image...".format(index))
+        feature = glcm.get_feature(image)
         print("store feature in {}th image...".format(index))
         store_feature(feature, os.path.join('../data/' + folder, label))
 
@@ -76,6 +104,31 @@ def extract_feature_lbp_and_hog(images_path, labels, folder):
         feature1 = lbp.get_feature(image)
         feature2 = hog.get_feature(image)
         feature = np.hstack((feature1, feature2))
+        print("store feature in {}th image...".format(index))
+        store_feature(feature, os.path.join('../data/' + folder, label))
+
+def extract_feature_hog_and_texture(images_path, labels, folder):
+    index = 0
+    for (image, label) in zip(images_path, labels):
+        index += 1
+        print("extract feature in {}th image...".format(index))
+        feature0 = lbp.get_feature(image)
+        feature1 = hog.get_feature(image)
+        feature2 = haralick.extract_features(image)
+        feature = np.hstack((feature0, feature1, feature2))
+        print("store feature in {}th image...".format(index))
+        store_feature(feature, os.path.join('../data/' + folder, label))
+
+
+def extract_feature_lbp_hog_glcm(images_path, labels, folder):
+    index = 0
+    for (image, label) in zip(images_path, labels):
+        index += 1
+        print("extract feature in {}th image...".format(index))
+        feature0 = lbp.get_feature(image)
+        feature1 = hog.get_feature(image)
+        feature2 = glcm.get_feature(image)
+        feature = np.hstack((feature0, feature1, feature2))
         print("store feature in {}th image...".format(index))
         store_feature(feature, os.path.join('../data/' + folder, label))
 
@@ -122,12 +175,22 @@ def extract_feature_texture(images_path, labels, folder):
         store_feature(feature, os.path.join('../data/' + folder, label))
 
 
+def extract_feature_coprop(images_path, labels, folder):
+    index = 0
+    for (image, label) in zip(images_path, labels):
+        index += 1
+        print("extract feature in {}th image...".format(index))
+        feature = coprop.get_feature(image)
+        print("store feature in {}th image...".format(index))
+        store_feature(feature, os.path.join('../data/' + folder, label))
+
 
 if __name__ == "__main__":
-    images_path, labels = load_from_csv('../csv/train.csv')
-    extract_feature_texture(images_path, labels, "train_texture")
-    images_path, labels = load_from_csv('../csv/test.csv')
-    extract_feature_texture(images_path, labels, "test_texture")
+
+     images_path, labels = load_from_csv('../csv/train.csv')
+     extract_feature_glcm(images_path, labels, "train_glcm_4096")
+     images_path, labels = load_from_csv('../csv/test.csv')
+     extract_feature_glcm(images_path, labels, "test_glcm_4096")
     
     # extract_feature_color(images_path, labels, "train_color")
     # images_path, labels = load_from_csv('../csv/test.csv')
