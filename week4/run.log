@@ -1,0 +1,39 @@
+
+Time: [0:00:17.829905] Pass 0, Batch 0, Cost [4.3323483], Acc [0.015625]
+..................................................................
+Time:[0:19:10.451435] Test with Pass 0, Loss 8.05900339519, Acc 0.0275735294118 Top5 Acc: 0.102481617647
+
+Time: [0:19:28.762739] Pass 0, Batch 1, Cost [8.502282], Acc [0.]
+............*** Aborted at 1533023630 (unix time) try "date -d @1533023630" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGTERM (@0x3e8000013d8) received by PID 11909 (TID 0x7fad7225b700) from PID 5080; stack trace: ***
+    @     0x7fad71e44390 (unknown)
+    @     0x7fad4afabf58 mkl_blas_avx_sgemm_pst
+    @     0x7fad4ada4ae6 mkl_blas_avx_xsgemm
+    @     0x7fad4a3ca7aa mkl_blas_sgemm_omp_driver_v1
+    @     0x7fad4a29c4d4 mkl_blas_sgemm
+    @     0x7fad4a2032a1 SGEMM
+    @     0x7fad4a1c5ec1 cblas_sgemm
+    @     0x7fad54e66cab paddle::operators::math::Blas<>::MatMul<>()
+    @     0x7fad54e6f854 paddle::operators::GemmConvKernel<>::Compute()
+    @     0x7fad54ffadbe paddle::framework::OperatorWithKernel::RunImpl()
+    @     0x7fad54ff8450 paddle::framework::OperatorBase::Run()
+    @     0x7fad54872cdf paddle::framework::Executor::RunPreparedContext()
+    @     0x7fad54873d30 paddle::framework::Executor::Run()
+    @     0x7fad547f5fab _ZZN8pybind1112cpp_function10initializeIZNS0_C1IvN6paddle9framework8ExecutorEJRKNS4_11ProgramDescEPNS4_5ScopeEibbEJNS_4nameENS_9is_methodENS_7siblingEEEEMT0_FT_DpT1_EDpRKT2_EUlPS5_S8_SA_ibbE_vJSO_S8_SA_ibbEJSB_SC_SD_EEEvOSF_PFSE_SH_ESN_ENUlRNS_6detail13function_callEE1_4_FUNESV_
+    @     0x7fad547ee46c pybind11::cpp_function::dispatcher()
+    @           0x4c37ed PyEval_EvalFrameEx
+    @           0x4b9ab6 PyEval_EvalCodeEx
+    @           0x4c16e7 PyEval_EvalFrameEx
+    @           0x4c136f PyEval_EvalFrameEx
+    @           0x4c136f PyEval_EvalFrameEx
+    @           0x4b9ab6 PyEval_EvalCodeEx
+    @           0x4c16e7 PyEval_EvalFrameEx
+    @           0x4b9ab6 PyEval_EvalCodeEx
+    @           0x4eb30f (unknown)
+    @           0x4e5422 PyRun_FileExFlags
+    @           0x4e3cd6 PyRun_SimpleFileExFlags
+    @           0x493ae2 Py_Main
+    @     0x7fad71a89830 __libc_start_main
+    @           0x4933e9 _start
+    @                0x0 (unknown)
